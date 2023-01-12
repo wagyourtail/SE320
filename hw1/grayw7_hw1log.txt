@@ -1,0 +1,16 @@
+Script started on Thu 12 Jan 2023 04:42:32 PM MST
+[?1034hsh-4.2$ cat hello.adb 
+with ada.text_IO; use ada.text_IO;
+procedure hello is
+begin
+   put(" Hello from the world of Ada!");
+end hello;sh-4.2$ gnatmake hello.adb 
+gcc -c hello.adb
+gnatbind -x hello.ali
+gnatlink hello.ali
+sh-4.2$ ./'[Khello 
+ Hello from the world of Ada!
+sh-4.2$ exiy[Kt
+exit
+
+Script done on Thu 12 Jan 2023 04:42:58 PM MST
