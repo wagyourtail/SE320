@@ -1,0 +1,8 @@
+project SE320 is
+
+   for Source_Dirs use ("hw1", "hw2");
+   for Object_Dir use "obj";
+   for Main use ("hello.adb", "hw2_grayw7.adb");
+
+end SE320;
+

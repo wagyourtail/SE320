@@ -5,5 +5,7 @@
 **/*.ali
 **/*.o
 
+obj/
+
 .idea
 !.gitignore
