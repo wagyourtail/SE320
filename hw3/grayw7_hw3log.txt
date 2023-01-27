@@ -1,0 +1,121 @@
+Script started on Thu 26 Jan 2023 05:57:09 PM MST
+[?1034hsh-4.2$ cat hw3_grayw7.adb 
+with ada.Text_IO, ada.Integer_Text_IO;
+
+use ada.Text_IO, ada.Integer_Text_IO;
+
+
+procedure hw3_grayw7 is
+    prime: Boolean;
+    mutable_number: Integer;
+begin
+    for number in 3..50 loop
+        -- set the prime flag to true
+        prime := true;
+        -- copy number to mutable_number so we can modify it
+        mutable_number := number;
+
+        -- loop over all possible factors
+        for denominator in 2..number-1 loop
+
+            -- check if the denominator divides the number
+            -- we know that the denominator will always be prime when this is true
+            -- because the smaller primes are divided out first and so only the next prime
+            -- will be able to divide the number
+            if mutable_number mod denominator = 0 then
+
+                -- initial set the prime flag to false and
+                -- begin the non-prime factorization
+                if prime then
+                    put(" The factorization of ");
+                    put(number, 0);
+                    put(" is ");
+                    put(denominator, 0);
+                    mutable_number := mutable_number / denominator;
+                    prime := false;
+                end if;
+
+                -- loop so we can factor by the same denominator multiple times
+                while mutable_number mod denominator = 0 loop
+                    put("*");
+                    put(denominator, 0);
+                    mutable_number := mutable_number / denominator;
+                end loop;
+
+                -- early exit if we have completely factored the number
+                -- this should always happen by the time we reach the square root of the number
+                if mutable_number = 1 then
+                    exit;
+                end if;
+            end if;
+        end loop;
+
+        -- if we have not factored the number, it is prime
+        if prime then
+            put(number, 0);
+            put(" is prime");
+        end if;
+
+        -- end line
+        new_line;
+    end loop;
+end hw3_grayw7;sh-4.2$ gnatmake grayw7_hw3log.txt [K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Khw3
+gnatmake: "hw3" not found
+sh-4.2$ gnatmake hw3_grayw7.adb 
+gcc -c hw3_grayw7.adb
+gnatbind -x hw3_grayw7.ali
+gnatlink hw3_grayw7.ali
+sh-4.2$ ls
+grayw7_hw3log.txt  hw3_grayw7  hw3_grayw7.adb  hw3_grayw7.ali  hw3_grayw7.o
+sh-4.2$ g[K./hw3_grayw7 
+3 is prime
+ The factorization of 4 is 2*2
+5 is prime
+ The factorization of 6 is 2*3
+7 is prime
+ The factorization of 8 is 2*2*2
+ The factorization of 9 is 3*3
+ The factorization of 10 is 2*5
+11 is prime
+ The factorization of 12 is 2*2*3
+13 is prime
+ The factorization of 14 is 2*7
+ The factorization of 15 is 3*5
+ The factorization of 16 is 2*2*2*2
+17 is prime
+ The factorization of 18 is 2*3*3
+19 is prime
+ The factorization of 20 is 2*2*5
+ The factorization of 21 is 3*7
+ The factorization of 22 is 2*11
+23 is prime
+ The factorization of 24 is 2*2*2*3
+ The factorization of 25 is 5*5
+ The factorization of 26 is 2*13
+ The factorization of 27 is 3*3*3
+ The factorization of 28 is 2*2*7
+29 is prime
+ The factorization of 30 is 2*3*5
+31 is prime
+ The factorization of 32 is 2*2*2*2*2
+ The factorization of 33 is 3*11
+ The factorization of 34 is 2*17
+ The factorization of 35 is 5*7
+ The factorization of 36 is 2*2*3*3
+37 is prime
+ The factorization of 38 is 2*19
+ The factorization of 39 is 3*13
+ The factorization of 40 is 2*2*2*5
+41 is prime
+ The factorization of 42 is 2*3*7
+43 is prime
+ The factorization of 44 is 2*2*11
+ The factorization of 45 is 3*3*5
+ The factorization of 46 is 2*23
+47 is prime
+ The factorization of 48 is 2*2*2*2*3
+ The factorization of 49 is 7*7
+ The factorization of 50 is 2*5*5
+sh-4.2$ exit
+
+Script done on Thu 26 Jan 2023 05:57:41 PM MST
