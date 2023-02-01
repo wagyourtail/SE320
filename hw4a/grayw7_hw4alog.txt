@@ -1,0 +1,28 @@
+Script started on Wed 01 Feb 2023 08:42:10 AM MST
+[?1034hsh-4.2$ gnatmake hw4a_grayw7.[K[K[K[K[K[K[K[K[K[K[K[K^C
+sh-4.2$ gnatmake hw4a_grayw7.
+hw4a_grayw7.adb  hw4a_grayw7.ali  hw4a_grayw7.o    
+sh-4.2$ gnatmake hw4a_grayw7.ada[Kb
+gnatmake: "hw4a_grayw7" up to date.
+sh-4.2$ rm hw5a[K[K4a.[K_grayw7
+sh-4.2$ rm hw4a_grayw7[C[C[C[C[C[C[C[Cgnatmake hw4a_grayw7.adb
+gnatbind -x hw4a_grayw7.ali
+gnatlink hw4a_grayw7.ali
+sh-4.2$ ./hw5a[K[K4a_grayw7 
+Enter a value between 0 and 50: 88
+  Invalid input value; try again.
+Enter a value between 0 and 50: 4
+Enter a value between 0 and 50: 99
+  Invalid input value; try again.
+Enter a value between 0 and 50: 77
+  Invalid input value; try again.
+Enter a value between 0 and 50: 7
+Enter a value between 0 and 50: 2
+Enter a value between 0 and 50: 66
+  Invalid input value; try again.
+Enter a value between 0 and 50: 0
+While making 4 mistakes, you ultimately entered 3 good values; their average was  4.3
+sh-4.2$ exit
+exit
+
+Script done on Wed 01 Feb 2023 08:43:10 AM MST
