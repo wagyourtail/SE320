@@ -1,0 +1,145 @@
+Script started on Thu 09 Feb 2023 03:22:33 PM MST
+[?1034hsh-4.2$ cat hw6[K5a_grayw7.adb 
+with ada.Text_IO, ada.Integer_Text_IO, ada.Float_Text_IO;
+
+use ada.Text_IO, ada.Integer_Text_IO, ada.Float_Text_IO;
+
+
+procedure hw5a_grayw7 is
+    type Piece is (
+        b, -- blank
+        RC, -- red checker
+        BC, -- black checker
+        RK, -- red king
+        BK -- black king
+    );
+
+    board: array(1..8, 1..8) of Piece;
+
+    black_count: Integer := 0;
+    red_count: Integer := 0;
+
+    valid: Boolean := true;
+
+    package Piece_IO is new Enumeration_IO(Piece);
+    use Piece_IO;
+begin
+    -- read in the board
+    for y_pos in 1..8 loop
+        for x_pos in 1..8 loop
+            get(board(x_pos, y_pos));
+        end loop;
+    end loop;
+
+    -- print board
+    put_line("  |---------------------------------------|");
+    for y_pos in 1..8 loop
+        put("  | ");
+        for x_pos in 1..8 loop
+            put(board(x_pos, y_pos), 2);
+            put(" | ");
+        end loop;
+        new_line;
+        put_line("  |---------------------------------------|");
+    end loop;
+
+    -- check for legality
+    new_line;
+    for y_pos in 1..8 loop
+        for x_pos in 1..8 loop
+            -- pieces are only valid on black squares (bottom left is black square)
+            -- thus, x+y must be odd
+            if (x_pos + y_pos) mod 2 = 0 then
+                if board(x_pos, y_pos) /= b then
+                    put("   Square ");
+                    -- to get squares coords from bottom left for output, invert y coord
+                    put(9-y_pos, 0);
+                    put(",");
+                    put(x_pos, 0);
+                    put_line(" should have been blank but wasn't.");
+                    valid := false;
+                end if;
+            end if;
+            -- add to piece count
+            case board(x_pos, y_pos) is
+                when RC =>
+                    red_count := red_count + 1;
+                when BC =>
+                    black_count := black_count + 1;
+                when RK =>
+                    red_count := red_count + 2;
+                when BK =>
+                    black_count := black_count + 2;
+                when b =>
+                    null;
+            end case;
+        end loop;
+    end loop;
+
+    -- check for correct number of pieces
+    new_line;
+    if red_count > 12 then
+        put_line("   There are too many red pieces on the board.");
+        valid := false;
+    end if;
+    if black_count > 12 then
+        put_line("   There are too many black pieces on the board.");
+        valid := false;
+    end if;
+
+    new_line;
+    new_line;
+    -- print result
+    put("This is ");
+    if not valid then
+        put("not ");
+    end if;
+    put_line("a legal board.");
+
+end hw5a_grayw7;sh-4.2$ cat board.txt 
+b  RC b  RC b  RC b  RC
+b  b  RC b  RC b  RC b
+b  BK b  b  b  b  b  b
+b  b  RC b  b  RC b  b
+b  b  b  BK b  b  BC RC
+BC b  b  b  b  b  b  b
+b  BK b  b  b  BC b  b
+BC b  BC b  BC b  BC bsh-4.2$ echo board.txt | [K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K
+sh-4.2$ 
+sh-4.2$ gcc[K[K[Kgnatmake b[Kgrayw7_hw5alog.txt [K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K
+sh-4.2$ gnata[Kmake b[Khw5a_grayw7.adb 
+gcc -c hw5a_grayw7.adb
+gnatbind -x hw5a_grayw7.ali
+gnatlink hw5a_grayw7.ali
+sh-4.2$ echo b[K[K[K[K[K[Kcat g[Kba[Koard.txt | ./hw5a_grayw7 
+  |---------------------------------------|
+  | B  | RC | B  | RC | B  | RC | B  | RC | 
+  |---------------------------------------|
+  | B  | B  | RC | B  | RC | B  | RC | B  | 
+  |---------------------------------------|
+  | B  | BK | B  | B  | B  | B  | B  | B  | 
+  |---------------------------------------|
+  | B  | B  | RC | B  | B  | RC | B  | B  | 
+  |---------------------------------------|
+  | B  | B  | B  | BK | B  | B  | BC | RC | 
+  |---------------------------------------|
+  | BC | B  | B  | B  | B  | B  | B  | B  | 
+  |---------------------------------------|
+  | B  | BK | B  | B  | B  | BC | B  | B  | 
+  |---------------------------------------|
+  | BC | B  | BC | B  | BC | B  | BC | B  | 
+  |---------------------------------------|
+
+   Square 5,6 should have been blank but wasn't.
+   Square 4,7 should have been blank but wasn't.
+
+   There are too many black pieces on the board.
+
+
+This is not a legal board.
+sh-4.2$ ei[Kxi
+sh: exi: command not found
+sh-4.2$ exit
+exit
+
+Script done on Thu 09 Feb 2023 03:24:02 PM MST
