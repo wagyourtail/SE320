@@ -6,6 +6,16 @@ use ada.Text_IO, ada.Integer_Text_IO;
 procedure hw6a_grayw7 is
     type Matrix2D is array (Positive range <>, Positive range <>) of Integer;
 
+    function log10(n: Integer) return Integer is
+        output: Integer := 0;
+    begin
+        -- not true log10, we always want to round up to the next integer
+        while 10*output <= n loop
+            output := output + 1;
+        end loop;
+        return output;
+    end log10;
+
     procedure put(mat: Matrix2D) is
         max: Integer := 0;
     begin
@@ -17,8 +27,8 @@ procedure hw6a_grayw7 is
                 end if;
             end loop;
         end loop;
-        -- "cheat" to get the max number of digits
-        max := max'Image'Length;
+        -- get max length
+        max := log10(max);
         -- output matrix
         new_line;
         for i in mat'Range(1) loop
