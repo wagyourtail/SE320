@@ -1,8 +1,11 @@
 project SE320 is
 
-   for Source_Dirs use ("hw1", "hw2", "hw3", "hw4a", "hw5a");
+   for Source_Dirs use ("hw1", "hw2", "hw3", "hw4a", "hw5a", "hw6a");
    for Object_Dir use "obj";
-   for Main use ("hello.adb", "hw2_grayw7.adb", "hw3_grayw7.adb", "hw4a_grayw7.adb", "hw5a_grayw7.adb");
+   for Main use ("hello.adb", "hw2_grayw7.adb", "hw3_grayw7.adb", "hw4a_grayw7.adb", "hw5a_grayw7.adb", "hw6a_grayw7.adb");
 
+   package Compiler is
+      for Switches ("Ada") use ("-gnatef");
+   end Compiler;
 end SE320;
 
