@@ -1,0 +1,70 @@
+Script started on Fri 24 Feb 2023 02:18:18 PM MST
+[?1034hsh-4.2$ s[Kcat gr[K[Khw7a_grayw7.adb 
+with ada.Text_IO;
+
+use ada.Text_IO;
+
+procedure hw7a_grayw7 is
+    input: string(1..10) := (others => ' ');
+    length: integer;
+    palindrome: boolean := true;
+    temp: character;
+begin
+    put("Enter a string: ");
+    get_line(input, length);
+
+--      put(length'Image);
+--      new_line;
+
+    for i in 1..length/2 loop
+--          put(i'Image);
+--          put("  ");
+        if input(i) /= input(length - i + 1) then
+            palindrome := false;
+            temp := input(i);
+            input(i) := input(length - i + 1);
+            input(length - i + 1) := temp;
+--              put(input);
+--              new_line;
+        end if;
+    end loop;
+
+    put("after reversal, the string is ");
+    put(input(1..length));
+    put(", so it");
+    if palindrome then
+        put(" is a palindrome");
+    else
+        put("'s not a palindrome");
+    end if;
+    new_line;
+end hw7a_grayw7;sh-4.2$ 
+sh-4.2$ 
+sh-4.2$ gna[Katmake hw7a_grayw7.adb 
+gcc -c hw7a_grayw7.adb
+gnatbind -x hw7a_grayw7.ali
+gnatlink hw7a_grayw7.ali
+sh-4.2$ ./st[K[Kh[Khw7a_grayw7 
+Enter a string: a
+after reversal, the string is a, so it is a palindrome
+sh-4.2$ aa[K[K./hw7a_grayw7 [C[C[C[C[C[C[C[C[11@gnatmake hw7a_grayw7.adb[C[C[C[C[C[C[C[C[C[11P./hw7a_grayw7[C
+Enter a string: aa
+after reversal, the string is aa, so it is a palindrome
+sh-4.2$ ./hw7a_grayw7 
+Enter a string: ab
+after reversal, the string is ba, so it's not a palindrome
+sh-4.2$ ./hw7a_grayw7 
+Enter a string: abc
+after reversal, the string is cba, so it's not a palindrome
+sh-4.2$ ./hw7a_grayw7 
+Enter a string: abba
+after reversal, the string is abba, so it is a palindrome
+sh-4.2$ ./hw7a_grayw7 
+Enter a string: abcba
+after reversal, the string is abcba, so it is a palindrome
+sh-4.2$ ./hw7a_grayw7 
+Enter a string: a b a
+after reversal, the string is a b a, so it is a palindrome
+sh-4.2$ exit
+
+Script done on Fri 24 Feb 2023 02:20:18 PM MST
