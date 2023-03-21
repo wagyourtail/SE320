@@ -1,0 +1,29 @@
+Script started on 2023-03-21 16:10:24-07:00 [COMMAND="sh" TERM="xterm-256color" TTY="/dev/pts/2" COLUMNS="232" LINES="8"]
+[?2004hsh-5.1$ cat image_length.adb 
+[?2004lwith ada.Text_IO, ada.Integer_Text_IO;
+
+use ada.Text_IO, ada.Integer_Text_IO;
+
+procedure image_length is
+    a: Integer := 743;
+begin
+    put(a);
+    new_line;
+    put(a'Image'Length);
+    new_line;
+end image_length;[?2004hsh-5.1$ gnatmake -v
+[?2004l
+GNATMAKE 12.2.1 20230201
+Copyright (C) 1992-2022, Free Software Foundation, Inc.
+try "gnatmake --help" for more information.
+[?2004hsh-5.1$ gnatmake o[Kimage_length.adb 
+[?2004lgcc -c image_length.adb
+gnatbind -x image_length.ali
+gnatlink image_length.ali
+[?2004hsh-5.1$ ,/ima[K[K[K[K[K./image_length 
+[?2004l        743
+          4
+[?2004hsh-5.1$ exit
+[?2004lexit
+
+Script done on 2023-03-21 16:12:49-07:00 [COMMAND_EXIT_CODE="0"]
