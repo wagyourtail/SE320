@@ -87,6 +87,7 @@ procedure hw9_grayw7 is
         -- check for valid date
         if dateOut.d > maxDays(dateOut.m, dateOut.y) then
             if dateOut.d = 29 and dateOut.m = Feb then
+                put("   ");
                 put(dateOut.y, 0);
                 put(" is not a leap year; try again.");
                 new_line;
@@ -143,7 +144,8 @@ procedure hw9_grayw7 is
         Ada.Text_IO.get(controlChar);
         if controlChar /= 'y' and controlChar /= 'n' then
             put("Not a valid control input.  Again ? [y/n] ");
-            Ada.Text_IO.get(controlChar);
+            flush;
+            get(controlChar);
         end if;
     end get;
 
