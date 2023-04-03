@@ -149,6 +149,7 @@ procedure hw9_grayw7 is
 
     controlChar : Character := 'y';
 begin
+    put_line("Enter dates as month day, year.  Months are Jan, Feb, Mar, Apr, May, June, July, Aug, Sept, Oct, Nov, and Dec.");
     while controlChar = 'y' loop
         put(nextDay(getDate)); -- gets a date from the user and then prints the next day's date
         new_line(2);
