@@ -9,7 +9,9 @@ project SE320 is
     "hw6a",
     "hw7a",
     "hw8b",
-    "hw9"
+    "hw9",
+    "hw10",
+    "hw11"
    );
 
    for Object_Dir use "obj";
@@ -22,7 +24,9 @@ project SE320 is
     "hw6a_grayw7.adb",
     "hw7a_grayw7.adb",
     "hw8b_grayw7.adb",
-    "hw9_grayw7.adb"
+    "hw9_grayw7.adb",
+    "hw10_grayw7.adb",
+    "hw11_grayw7.adb"
    );
 
    package Compiler is
