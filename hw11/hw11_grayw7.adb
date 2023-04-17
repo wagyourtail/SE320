@@ -12,7 +12,10 @@ begin
     loop
         put("?  ");
         get(left);
-        get(sign);
+        sign := ' ';
+        while sign = ' ' loop
+            get(sign);
+        end loop;
         get(right);
 
         put("    ");
