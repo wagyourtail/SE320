@@ -1,0 +1,185 @@
+Script started on Tue 02 May 2023 08:40:14 PM MST
+[?1034hsh-4.2$ [Ksh-4.2$ cat stack.ads
+
+generic
+    type Element_Type is private;
+package stack is
+
+    procedure Push (E : Element_Type);
+    function Pop return Element_Type;
+
+    Empty_Stack: exception;
+
+end stack;
+sh-4.2$ cat stack.adb
+
+package body stack is
+
+    type Node is record
+        Data : Element_Type;
+        Next : access Node;
+    end record;
+
+    head: access Node := null;
+
+    procedure Push(E: Element_Type) is
+    begin
+       head := new Node'(Data => E, Next => head);
+    end push;
+
+    function Pop return Element_Type is
+       E: Element_Type;
+    begin
+         -- detect if empty
+        if head = null then
+            raise Empty_Stack;
+        end if;
+        E := head.Data;
+        head := head.Next;
+        return E;
+     end pop;
+
+end stack;sh-4.2$ 
+sh-4.2$ cat grayw7_hw12log.txt [K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K
+sh-4.2$ cat hw12_grayw7.adb 
+with ada.text_io; use ada.text_io;
+with ada.integer_text_io; use ada.integer_text_io;
+with ada.float_text_io; use ada.float_text_io;
+with ada.io_exceptions;
+
+with stack;
+
+procedure hw12_grayw7 is
+
+    package int_stack is new stack(integer);
+    use int_stack;
+
+    type point is record
+        x: float;
+        y: float;
+    end record;
+
+    procedure get(somePoint: out point) is
+    begin
+        put("Enter the floating point coordinates of a 2-D point as just x.xx y.yy: ");
+        get(somePoint.x);
+        get(somePoint.y);
+    end get;
+
+    procedure put(somePoint: point) is
+    begin
+        put("The point popped is [");
+        put(somePoint.x, exp => 0, aft => 2);
+        put(", ");
+        put(somePoint.y, exp => 0, aft => 2);
+        put("]");
+    end put;
+
+    package point_stack is new stack(point);
+    use point_stack;
+
+    type operation_type is (pushInteger, popInteger, pushPoint, popPoint, quit);
+    package operation_io is new ada.text_io.enumeration_io(operation_type);
+    use operation_io;
+
+    operation: operation_type;
+    someInteger: integer;
+    somePoint: point;
+
+begin
+
+    loop
+        begin
+            put("What do you want to do (pushPoint, popPoint, pushInteger, or popInteger)? ");
+            get(operation);
+            case operation is
+                when pushInteger =>
+                    put(" Enter an integer: ");
+                    get(someInteger);
+                    push(someInteger);
+                    new_line;
+                when popInteger =>
+                    someInteger := pop;
+                    put(" Value popped was ");
+                    put(someInteger, 0);
+                    new_line(2);
+                when pushPoint =>
+                    get(somePoint);
+                    push(somePoint);
+                    new_line;
+                when popPoint =>
+                    somePoint := pop;
+                    put(somePoint);
+                    new_line(2);
+                when quit =>
+                    put(" Bye");
+                    exit;
+            end case;
+        exception
+            when int_stack.Empty_Stack | point_stack.Empty_Stack =>
+                put_line(" Empty stack, cannot pop");
+                new_line;
+            when ada.io_exceptions.Data_Error =>
+                put_line(" Not a legal operation");
+                new_line;
+        end;
+    end loop;
+end hw12_grayw7;sh-4.2$ 
+sh-4.2$ 
+sh-4.2$ gnatmake hw12_grayw7.adb 
+gcc -c hw12_grayw7.adb
+gcc -c stack.adb
+gnatbind -x hw12_grayw7.ali
+gnatlink hw12_grayw7.ali
+sh-4.2$ 
+sh-4.2$ ./hw12_grayw7 
+What do you want to do (pushPoint, popPoint, pushInteger, or popInteger)? oopsy
+ Not a legal operation
+
+What do you want to do (pushPoint, popPoint, pushInteger, or popInteger)? popInteger
+ Empty stack, cannot pop
+
+What do you want to do (pushPoint, popPoint, pushInteger, or popInteger)? popPoint
+ Empty stack, cannot pop
+
+What do you want to do (pushPoint, popPoint, pushInteger, or popInteger)? pushInteger
+ Enter an integer: 34
+
+What do you want to do (pushPoint, popPoint, pushInteger, or popInteger)? pushPoint
+Enter the floating point coordinates of a 2-D point as just x.xx y.yy: 1.0 2.0
+
+What do you want to do (pushPoint, popPoint, pushInteger, or popInteger)? pushPoint
+Enter the floating point coordinates of a 2-D point as just x.xx y.yy: 3.0 4.0
+
+What do you want to do (pushPoint, popPoint, pushInteger, or popInteger)? popPoint
+The point popped is [ 3.00,  4.00]
+
+What do you want to do (pushPoint, popPoint, pushInteger, or popInteger)? popPoint
+The point popped is [ 1.00,  2.00]
+
+What do you want to do (pushPoint, popPoint, pushInteger, or popInteger)? popPoint
+ Empty stack, cannot pop
+
+What do you want to do (pushPoint, popPoint, pushInteger, or popInteger)? popInteger
+ Value popped was 34
+
+What do you want to do (pushPoint, popPoint, pushInteger, or popInteger)? pushInteger
+ Enter an integer: 12
+
+What do you want to do (pushPoint, popPoint, pushInteger, or popInteger)? pushInteger
+ Enter an integer: 45
+
+What do you want to do (pushPoint, popPoint, pushInteger, or popInteger)? popInteger
+ Value popped was 45
+
+What do you want to do (pushPoint, popPoint, pushInteger, or popInteger)? popInteger
+ Value popped was 12
+
+What do you want to do (pushPoint, popPoint, pushInteger, or popInteger)? popInteger
+ Empty stack, cannot pop
+
+What do you want to do (pushPoint, popPoint, pushInteger, or popInteger)? qyu  uit
+ Bye
+sh-4.2$ exit
+
+Script done on Tue 02 May 2023 08:42:13 PM MST
